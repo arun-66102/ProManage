@@ -20,6 +20,10 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
+// Serve frontend static files
+import path from 'path';
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
 // ─── Rate Limiting (on auth routes) ─────────────────────
 const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes

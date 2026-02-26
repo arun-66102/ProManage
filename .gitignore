@@ -3,3 +3,6 @@ dist/
 .env
 uploads/*
 !uploads/.gitkeep
+ApiCheatsheet.md
+api-integration.md
+docs/
