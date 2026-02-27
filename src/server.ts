@@ -13,12 +13,15 @@ const start = async () => {
         // Initialize event listeners
         initListeners();
 
-        // Start server
-        app.listen(env.PORT, () => {
-            logger.info(`🚀 ProManage API running on http://localhost:${env.PORT}`);
-            logger.info(`📖 Health check: http://localhost:${env.PORT}/api/health`);
-            logger.info(`🔧 Environment: ${env.NODE_ENV}`);
-        });
+        // Start server only in development/local environments
+        // Vercel serverless will use the exported app instead of this listener
+        if (env.NODE_ENV !== 'production') {
+            app.listen(env.PORT, () => {
+                logger.info(`🚀 ProManage API running on http://localhost:${env.PORT}`);
+                logger.info(`📖 Health check: http://localhost:${env.PORT}/api/health`);
+                logger.info(`🔧 Environment: ${env.NODE_ENV}`);
+            });
+        }
     } catch (error) {
         logger.error('❌ Failed to start server:', error);
         process.exit(1);
@@ -39,3 +42,5 @@ process.on('SIGTERM', async () => {
 });
 
 start();
+
+export default app;
