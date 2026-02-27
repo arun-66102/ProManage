@@ -17,7 +17,7 @@ const app = express();
 // ─── Global Middleware ───────────────────────────────────
 app.use(helmet());
 app.use(cors({
-    origin: ['https://pro-manage-gowf.vercel.app', 'http://localhost:3000', 'http://localhost:5000', 'http://127.0.0.1:5500']
+    origin: ['https://pro-manage-frontend-inky.vercel.app', 'http://localhost:3000', 'http://localhost:5000', 'http://127.0.0.1:5500']
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
