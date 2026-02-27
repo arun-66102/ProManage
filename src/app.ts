@@ -17,7 +17,10 @@ const app = express();
 // ─── Global Middleware ───────────────────────────────────
 app.use(helmet());
 app.use(cors({
-    origin: ['https://pro-manage-frontend-inky.vercel.app', 'http://localhost:3000', 'http://localhost:5000', 'http://127.0.0.1:5500']
+    origin: ['https://pro-manage-frontend-inky.vercel.app', 'http://localhost:3000', 'http://localhost:5000', 'http://127.0.0.1:5500'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
@@ -48,6 +51,15 @@ app.use('/api/workspaces', workspaceRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/upload', uploadRoutes);
+
+// ─── OPTIONS Preflight Handler ─────────────────────────────
+app.options('*', (req, res) => {
+    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.sendStatus(200);
+});
 
 // ─── 404 Handler ─────────────────────────────────────────
 app.use((_req, res) => {
