@@ -50,3 +50,5 @@ if (env.NODE_ENV !== 'production') {
 }
 
 export default app;
+// Required for Vercel to recognize the Express app directly instead of inside a 'default' object
+module.exports = app;
