@@ -3,7 +3,7 @@
    Auth, Workspaces, Projects, Tasks (Kanban board)
    ═══════════════════════════════════════════════════════════════════════ */
 
-const API = "/api";
+const API = "https://pro-manage-pied.vercel.app/api";
 
 // ─── DOM Helpers ────────────────────────────────────────────────────────
 const $ = (s) => document.querySelector(s);
