@@ -15,7 +15,7 @@ const start = async () => {
 
         // Start server only in development/local environments
         // Vercel serverless will use the exported app instead of this listener
-        if (env.NODE_ENV !== 'production') {
+        if (env.NODE_ENV !== 'production' && !process.env.VERCEL) {
             app.listen(env.PORT, () => {
                 logger.info(`🚀 ProManage API running on http://localhost:${env.PORT}`);
                 logger.info(`📖 Health check: http://localhost:${env.PORT}/api/health`);
@@ -41,7 +41,7 @@ process.on('SIGTERM', async () => {
     process.exit(0);
 });
 
-if (env.NODE_ENV !== 'production') {
+if (env.NODE_ENV !== 'production' && !process.env.VERCEL) {
     start();
 } else {
     // In production (Vercel), just initialize event listeners and export app.
