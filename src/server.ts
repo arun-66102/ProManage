@@ -41,6 +41,12 @@ process.on('SIGTERM', async () => {
     process.exit(0);
 });
 
-start();
+if (env.NODE_ENV !== 'production') {
+    start();
+} else {
+    // In production (Vercel), just initialize event listeners and export app.
+    // Prisma will connect lazily on the first query.
+    initListeners();
+}
 
 export default app;
